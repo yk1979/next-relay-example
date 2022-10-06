@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:codegen": "graphql-codegen -c codegen.yml",
+    "build:next": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -17,6 +18,9 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.13.5",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-resolvers": "^2.7.3",
     "@types/node": "18.8.2",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
