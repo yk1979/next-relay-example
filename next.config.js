@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+  compiler: {
+    relay: require("./relay.config"),
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
