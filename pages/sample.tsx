@@ -2,7 +2,12 @@ import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 import RelayEnvironment from "../graphql/client/environment";
 
-import { graphql, loadQuery, usePreloadedQuery } from "react-relay";
+import {
+  graphql,
+  loadQuery,
+  PreloadedQuery,
+  usePreloadedQuery,
+} from "react-relay";
 import { sampleQuery } from "../graphql/__generated__/relay/sampleQuery.graphql";
 import { Suspense } from "react";
 
@@ -11,25 +16,34 @@ const query = graphql`
     hello
   }
 `;
-const preloadedQuery = loadQuery<sampleQuery>(RelayEnvironment, query, {});
 
-const Sample: NextPage = () => {
+type Props = {
+  preloadedQuery: PreloadedQuery<sampleQuery>;
+};
+
+const Sample: NextPage<Props> = ({ preloadedQuery }) => {
   const data = usePreloadedQuery<sampleQuery>(query, preloadedQuery);
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>{data.hello}</h1>
+        <h1 className={styles.title}>Relay Suspense sample</h1>
+        {data.hello}
       </main>
     </div>
   );
 };
 
-const SampleContainer: NextPage = () => {
+const SampleContainer: NextPage<Props> = (props) => {
   return (
     <Suspense fallback="loading...">
-      <Sample />
+      <Sample {...props} />
     </Suspense>
   );
+};
+
+SampleContainer.getInitialProps = () => {
+  const preloadedQuery = loadQuery<sampleQuery>(RelayEnvironment, query, {});
+  return { preloadedQuery };
 };
 
 export default SampleContainer;

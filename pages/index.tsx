@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <h1>Next x Relay Example</h1>
-      <Link href="./sample">got to sample page</Link>
+      <Link href="./sample">got to suspense sample page</Link>
     </div>
   );
 };

@@ -9,7 +9,7 @@ export const resolvers: Resolvers = {
   Query: {
     hello: async () => {
       await sleep();
-      return "Hello from Yoga!";
+      return "this is returned data from GraphQL Yoga server";
     },
   },
 };
