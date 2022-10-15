@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build:codegen": "graphql-codegen -c codegen.yml",
+    "build:codegen": "graphql-codegen -c codegen.ts",
     "build:relay": "relay-compiler",
     "build:next": "next build",
     "start": "next start",
