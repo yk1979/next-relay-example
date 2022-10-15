@@ -33,6 +33,7 @@ const Sample: NextPage<Props> = ({ preloadedQuery }) => {
   );
 };
 
+// TODO: suspense は _app.tsx に書きたい（Next.js 側がハンドリングしてしまって動かない？）
 const SampleContainer: NextPage<Props> = (props) => {
   return (
     <Suspense fallback="loading...">

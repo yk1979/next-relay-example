@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import { Suspense } from "react";
 import Link from "next/link";
 
 const Home: NextPage = () => {
@@ -12,12 +11,4 @@ const Home: NextPage = () => {
   );
 };
 
-const HomeContainer: NextPage = () => {
-  return (
-    <Suspense fallback="loading...">
-      <Home />
-    </Suspense>
-  );
-};
-
-export default HomeContainer;
+export default Home;
