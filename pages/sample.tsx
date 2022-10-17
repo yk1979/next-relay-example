@@ -1,15 +1,11 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import RelayEnvironment from "../graphql/client/environment";
 
-import {
-  graphql,
-  loadQuery,
-  PreloadedQuery,
-  usePreloadedQuery,
-} from "react-relay";
+import { graphql, PreloadedQuery, usePreloadedQuery } from "react-relay";
 import { sampleQuery } from "../graphql/__generated__/relay/sampleQuery.graphql";
 import { Suspense } from "react";
+import { preloadQuery } from "../graphql/client/preloadQuery";
+import { RelayAppPageProps } from "../graphql/client/types";
 
 const query = graphql`
   query sampleQuery {
@@ -17,12 +13,15 @@ const query = graphql`
   }
 `;
 
-type Props = {
-  preloadedQuery: PreloadedQuery<sampleQuery>;
+type PageProps = {
+  initialPreloadedQuery: PreloadedQuery<sampleQuery>;
 };
+type InitialProps = PageProps | RelayAppPageProps;
 
-const Sample: NextPage<Props> = ({ preloadedQuery }) => {
-  const data = usePreloadedQuery<sampleQuery>(query, preloadedQuery);
+const Sample: NextPage<PageProps, InitialProps> = ({
+  initialPreloadedQuery,
+}) => {
+  const data = usePreloadedQuery<sampleQuery>(query, initialPreloadedQuery);
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -34,7 +33,7 @@ const Sample: NextPage<Props> = ({ preloadedQuery }) => {
 };
 
 // TODO: suspense は _app.tsx に書きたい（Next.js 側がハンドリングしてしまって動かない？）
-const SampleContainer: NextPage<Props> = (props) => {
+const SampleContainer: NextPage<PageProps, InitialProps> = (props) => {
   return (
     <Suspense fallback="loading...">
       <Sample {...props} />
@@ -43,8 +42,7 @@ const SampleContainer: NextPage<Props> = (props) => {
 };
 
 SampleContainer.getInitialProps = () => {
-  const preloadedQuery = loadQuery<sampleQuery>(RelayEnvironment, query, {});
-  return { preloadedQuery };
+  return preloadQuery<sampleQuery>(query, {});
 };
 
 export default SampleContainer;
