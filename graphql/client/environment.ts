@@ -6,7 +6,7 @@ import { RelayAppPageProps, RelayPageProps } from "./types";
 
 // SSRする場合に、シングルトンだと異なる利用者が同一の Environment (= キャッシュ) を参照してしまい事故が起きる
 // これを防ぐため、サーバサイドでは毎回新しい Environment のインスタンスを作りつつ、クライアントサイドでは同じ Environment を参照できるようにする
-function createEnvironment() {
+function createRelayEnvironment() {
   const network = Network.create(fetchGraphQL);
   const store = new Store(new RecordSource());
   const environment = new Environment({
@@ -22,10 +22,10 @@ let clientEnvironment: Environment | undefined;
 // 呼び出し元がサーバなのかクライアントなのかを判断し、クライアントであれば同一のインスタンスを使い回す
 export function getRelayEnvironment() {
   if (typeof window === "undefined") {
-    return createEnvironment();
+    return createRelayEnvironment();
   }
 
-  clientEnvironment ??= createEnvironment();
+  clientEnvironment ??= createRelayEnvironment();
   return clientEnvironment;
 }
 
