@@ -6,6 +6,7 @@ import { graphql, PreloadedQuery, usePreloadedQuery } from "react-relay";
 import { preloadQuery } from "../graphql/client/preloadQuery";
 import { RelayAppPageProps } from "../graphql/client/types";
 import { sampleQuery } from "../graphql/__generated__/relay/sampleQuery.graphql";
+import { useDispose } from "../graphql/client/dispose";
 
 const query = graphql`
   query sampleQuery {
@@ -22,6 +23,7 @@ const Sample: NextPage<PageProps, InitialProps> = ({
   initialPreloadedQuery,
 }) => {
   const data = usePreloadedQuery<sampleQuery>(query, initialPreloadedQuery);
+  useDispose(initialPreloadedQuery);
   return (
     <div className={styles.container}>
       <main className={styles.main}>
