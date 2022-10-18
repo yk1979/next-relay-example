@@ -1,7 +1,7 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { RelayEnvironmentProvider } from "react-relay";
 import { useRelayEnvironment } from "../graphql/client/environment";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   console.log("App: start rendering");

@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 
-import { graphql, PreloadedQuery, usePreloadedQuery } from "react-relay";
-import { sampleQuery } from "../graphql/__generated__/relay/sampleQuery.graphql";
 import { Suspense } from "react";
+import { graphql, PreloadedQuery, usePreloadedQuery } from "react-relay";
 import { preloadQuery } from "../graphql/client/preloadQuery";
 import { RelayAppPageProps } from "../graphql/client/types";
+import { sampleQuery } from "../graphql/__generated__/relay/sampleQuery.graphql";
 
 const query = graphql`
   query sampleQuery {
