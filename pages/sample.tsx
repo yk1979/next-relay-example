@@ -34,7 +34,6 @@ const Sample: NextPage<PageProps, InitialProps> = ({
   );
 };
 
-// TODO: suspense は _app.tsx に書きたい（Next.js 側がハンドリングしてしまって動かない？）
 const SampleContainer: NextPage<PageProps, InitialProps> = (props) => {
   return (
     <Suspense fallback="loading...">
