@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
-
-import { Suspense } from "react";
 import { graphql, PreloadedQuery, usePreloadedQuery } from "react-relay";
+
+import { useDispose } from "../graphql/client/dispose";
 import { preloadQuery } from "../graphql/client/preloadQuery";
 import { RelayAppPageProps } from "../graphql/client/types";
 import { sampleQuery } from "../graphql/__generated__/relay/sampleQuery.graphql";
-import { useDispose } from "../graphql/client/dispose";
+import styles from "../styles/Home.module.css";
 
 const query = graphql`
   query sampleQuery {
@@ -34,16 +33,12 @@ const Sample: NextPage<PageProps, InitialProps> = ({
   );
 };
 
-const SampleContainer: NextPage<PageProps, InitialProps> = (props) => {
-  return (
-    <Suspense fallback="loading...">
-      <Sample {...props} />
-    </Suspense>
-  );
-};
-
-SampleContainer.getInitialProps = () => {
+Sample.getInitialProps = () => {
   return preloadQuery<sampleQuery>(query, {});
 };
 
-export default SampleContainer;
+// next/link による Transition を活用する
+export default Sample;
+
+// Suspense によるフォールバックを有効にしたい場合はこちらを使う
+// export default wrapSuspense(Sample);
